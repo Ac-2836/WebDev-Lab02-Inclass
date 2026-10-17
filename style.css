@@ -1,0 +1,74 @@
+:root {
+  font-family: Arial, sans-serif;
+  color: #202333;
+  background: #f7f8fc;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+.task-app {
+  width: min(100% - 2rem, 42rem);
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #fff;
+  border: 1px solid #e1e4ee;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.75rem 2rem rgb(32 35 51 / 8%);
+}
+
+.task-app header,
+.task-app nav,
+.task-app li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.task-app header {
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.task-app h1,
+.task-app p {
+  margin: 0;
+}
+
+.task-app nav {
+  margin: 1.5rem 0;
+}
+
+.task-app button {
+  padding: 0.55rem 0.85rem;
+  color: inherit;
+  background: #f1f3f9;
+  border: 1px solid #d7dbea;
+  border-radius: 0.4rem;
+  cursor: pointer;
+}
+
+.task-app button[aria-pressed='true'] {
+  color: #fff;
+  background: #3157c8;
+  border-color: #3157c8;
+}
+
+.task-app ul {
+  display: grid;
+  gap: 0.65rem;
+  padding: 0;
+  list-style: none;
+}
+
+.task-app li {
+  justify-content: space-between;
+  padding: 0.75rem;
+  border: 1px solid #e1e4ee;
+  border-radius: 0.4rem;
+}
