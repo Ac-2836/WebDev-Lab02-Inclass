@@ -12,6 +12,11 @@ export function useState(initialValue) {
     stateStore[currentCursor] = initialValue;
   }
 
+  const setState = (nextState) => {
+    stateStore[currentCursor] = nextState;
+  };
+
+  const state = stateStore[currentCursor];
   cursor += 1;
-  return stateStore[currentCursor];
+  return [state, setState];
 }
