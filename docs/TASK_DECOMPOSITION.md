@@ -19,33 +19,15 @@
 | 2.6 Support function updaters | Small | Handle `setState(prev => next)` | If the argument is a function, call it with the previous state | `feat(state): support functional state updates` | Modify `reactive-engine.js` |
 | 2.7 Skip identical updates | Small | Avoid needless re-render | Compare with `Object.is`; re-render only when the value changed | `perf(state): skip identical state updates` | Modify `reactive-engine.js` |
 | 2.8 Implement setRenderer & triggerRender | Small | Connect state changes to root re-render | Callback registered once; invoked only after an actual change | `feat(state): implement reactive useState dispatcher` | Modify `reactive-engine.js` |
-| 2.9 Store VNode on DOM nodes in renderToDOM | Small | Link each real node to its VNode | Set `__vnode`; stop attaching `on*` listeners directly | `feat(events): store vnode metadata for delegation` | Modify `mini-react.js` |
-| 2.10 Map event type to handler prop | Small | click to onClick, input to onInput, keydown to onKeydown | Supported events: click, input, keydown; use `keydown`, never `keypress` | `feat(events): map delegated event handlers` | Create `event-delegation-hub.js` |
-| 2.11 Implement bubbling traversal | Small | Find the handler from event.target up to root | Stop at the root container; call the first matching `__vnode.props` handler | `feat(events): resolve handlers through bubbling` | Modify `event-delegation-hub.js` |
-| 2.12 Implement setupEventDelegation | Small | Attach root listeners | One listener per event type on root; none on child elements; no inline handlers | `feat(events): attach root event delegation listener` | Modify `event-delegation-hub.js` |
-| 2.13 Configure JSX transform | Small | Compile JSX to the custom createElement | Vite/ESBuild JSX transform; no Babel standalone | `build(jsx): configure esbuild transform` | Create `vite.config.js` |
-| 2.14 Implement renderApp | Small | Re-run the component tree and remount | resetCursor, run root component, renderToDOM, `replaceChildren`; registered via setRenderer | `feat(state): add app render lifecycle` | Modify `reactive-engine.js` |
-| 2.15 Define task item & filter types (Contract) | Small | Types for Task Manager state | Task has stable id, title, done; filter is ALL, ACTIVE or DONE | `feat(types): define task and filter types` | Create `task-types.ts` |
-| 2.16 Implement filterTasks | Small | Pure filtering function | Pure; never mutates its input | `feat(tasks): add pure task filtering` | Create `filter-tasks.js` |
-| 2.17 Implement TaskApp | Small | Task list state, count header, Add Task button | Semantic tags (`<main>`, `<header>`, `<button>`); state through the custom useState | `feat(ui): add task app structure` | Create `task-app.jsx` |
-| 2.18 Add filter state & toggle buttons | Small | Filter buttons update filter state | Dynamic filter toggles through delegated `onClick` | `feat(ui): add task filter controls` | Modify `task-app.jsx` |
-| 2.19 Add done toggle & render filtered list | Small | Toggle task completion, show the filtered list | Immutable state updates; text rendered via text nodes, no `innerHTML` | `feat(ui): assemble reactive todo application` | Modify `task-app.jsx` |
-| 2.20 Verify checkpoint | Small | Audit reactivity and listeners | Mutate state via UI; DevTools shows zero listeners on button children (root only) | — | None |
+| 2.9 Implement root event delegation hub | Medium | Connect VNodes to one root event listener | Store `__vnode`; support click, input, keydown; traverse bubbling to root; no child listeners | `feat(events): attach root event delegation listener` | Modify `mini-react.js`; create `event-delegation-hub.js` |
+| 2.10 Assemble reactive Task Manager | Medium | Configure JSX and connect the state engine, event hub, and Task UI | Vite/ESBuild JSX transform; `renderApp` lifecycle; task/filter contracts; pure filtering; semantic UI; immutable updates | `feat(ui): assemble reactive todo application` | Create `vite.config.js`, `task-types.ts`, `filter-tasks.js`, `task-app.jsx`; modify `reactive-engine.js` |
+| 2.11 Verify checkpoint | Small | Audit reactivity and listeners | Mutate state via UI; DevTools shows zero listeners on button children (root only) | — | None |
 | **3. Resilient State Machine & Skeleton Loader** (Exercise 3) | Big | Async data component with four states | Eliminate race conditions and inconsistent UI states | — | Create `data-feed.jsx`, `view-state.ts`, `fetch-feed.js`, `skeleton.css` |
-| 3.1 Define ViewState<T> (Contract) | Small | Discriminated union for the data lifecycle | status strictly IDLE, LOADING, SUCCESS or ERROR; SUCCESS carries data, ERROR carries an error string | `feat(types): define feed view states` | Create `view-state.ts` |
-| 3.2 Define Item type & fetchFeed signature (Contract) | Small | Types for the feed data | `fetchFeed(): Promise<Item[]>` | `feat(types): define feed item contract` | Modify `view-state.ts` |
-| 3.3 Implement mock fetchFeed | Small | Simulated network call | Simulated latency and a switchable failure so the ERROR path can be tested | `feat(api): add mock feed fetcher` | Create `fetch-feed.js` |
-| 3.4 Implement loadData transitions | Small | IDLE to LOADING to SUCCESS or ERROR | try/catch; every path ends in SUCCESS or ERROR | `feat(ui): add feed loading transitions` | Create `data-feed.jsx` |
-| 3.5 Guard against race conditions | Small | Ignore stale responses | Only the latest request may update state (request id or AbortController) | `fix(ui): ignore stale feed responses` | Modify `data-feed.jsx` |
-| 3.6 Implement skeleton placeholder | Small | Loading placeholder | Animated pulsing CSS placeholder shown only during LOADING | `feat(ui): add loading skeleton` | Create `skeleton.css`; modify `data-feed.jsx` |
-| 3.7 Implement error view | Small | Readable error with retry | Human-readable message plus a 'Retry Connection' button that calls loadData | `feat(ui): add feed error retry view` | Modify `data-feed.jsx` |
-| 3.8 Implement success view | Small | Render the item list | Semantic list tags; text via text nodes | `feat(ui): render feed success state` | Modify `data-feed.jsx` |
-| 3.9 Implement IDLE view with Load trigger | Small | Start the first load | The engine has no effect hook, so loading starts from a button | `feat(ui): add idle feed trigger` | Modify `data-feed.jsx` |
-| 3.10 Implement status-based render switch | Small | One branch per status | Cover all four states exhaustively | `feat(ui): implement multi-state data component with skeleton feedback` | Modify `data-feed.jsx` |
-| 3.11 Verify transitions | Small | Audit state machine behavior | DevTools check of success, forced failure, retry, and rapid repeated triggers; no inconsistent UI | — | None |
+| 3.1 Implement resilient data-feed state machine | Large | Build the complete async feed lifecycle | Define ViewState and Item contracts; mock fetch with latency/failure; handle IDLE, LOADING, SUCCESS, ERROR; prevent stale responses; show skeleton and retry; use semantic list markup | `feat(ui): implement multi-state data component with skeleton feedback` | Create `view-state.ts`, `fetch-feed.js`, `data-feed.jsx`, `skeleton.css` |
+| 3.2 Verify transitions | Small | Audit state machine behavior | DevTools check of success, forced failure, retry, and rapid repeated triggers; no inconsistent UI | — | None |
 | **4. AI Failure Audit** | Big | Report on AI failures found during the lab | Mandatory deliverable (15% of the grade) | — | Create `AI_FAILURE_AUDIT.md` |
 | 4.1 Compile AI_FAILURE_AUDIT.md | Small | Turn the logged failures into the report | At least 3 detected failures; each entry uses the slide's format with DevTools proof and manual fix | `docs: add ai failure audit report` | Create `AI_FAILURE_AUDIT.md` |
 
-* RULE: Never prompt AI with >1 sub-task simultaneously. Each task that
-  creates or modifies files has its own commit; verification-only tasks have
-  no commit. Use the exact course-mandated commit messages where specified.
+* RULE: Keep work atomic, but group related sub-tasks into meaningful
+  implementation milestones. Commit at the milestone boundary, not after
+  every small edit. Preserve exact course-mandated commit messages.
