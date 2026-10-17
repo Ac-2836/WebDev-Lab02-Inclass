@@ -28,9 +28,9 @@ export function TaskApp() {
   };
 
   return (
-    <main className="task-app">
+    <section className="task-app" aria-labelledby="task-title">
       <header>
-        <h1>Task Manager</h1>
+        <h1 id="task-title">Task Manager</h1>
         <p>{tasks.length} total tasks</p>
         <button type="button" onClick={addTask}>
           Add Task
@@ -61,6 +61,6 @@ export function TaskApp() {
           </li>
         ))}
       </ul>
-    </main>
+    </section>
   );
 }

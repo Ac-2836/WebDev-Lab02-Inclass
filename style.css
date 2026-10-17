@@ -12,9 +12,16 @@ body {
   min-height: 100vh;
 }
 
-.task-app {
+.lab-app {
+  display: grid;
+  gap: 1.5rem;
   width: min(100% - 2rem, 42rem);
   margin: 3rem auto;
+}
+
+.task-app {
+  width: auto;
+  margin: 0;
   padding: 2rem;
   background: #fff;
   border: 1px solid #e1e4ee;
@@ -22,21 +29,34 @@ body {
   box-shadow: 0 0.75rem 2rem rgb(32 35 51 / 8%);
 }
 
+.data-feed {
+  padding: 1.5rem 2rem;
+  background: #fff;
+  border: 1px solid #e1e4ee;
+  border-radius: 0.75rem;
+}
+
 .task-app header,
+.data-feed header,
 .task-app nav,
-.task-app li {
+.task-app li,
+.data-feed li {
   display: flex;
   align-items: center;
   gap: 0.75rem;
 }
 
-.task-app header {
+.task-app header,
+.data-feed header {
   justify-content: space-between;
   flex-wrap: wrap;
 }
 
 .task-app h1,
-.task-app p {
+.task-app p,
+.data-feed h2,
+.data-feed h3,
+.data-feed p {
   margin: 0;
 }
 
@@ -66,9 +86,21 @@ body {
   list-style: none;
 }
 
-.task-app li {
+.data-feed ul {
+  display: grid;
+  gap: 0.65rem;
+  padding: 0;
+  list-style: none;
+}
+
+.task-app li,
+.data-feed li {
   justify-content: space-between;
   padding: 0.75rem;
   border: 1px solid #e1e4ee;
   border-radius: 0.4rem;
+}
+
+.data-feed li {
+  display: block;
 }
