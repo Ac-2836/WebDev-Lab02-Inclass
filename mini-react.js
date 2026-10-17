@@ -12,7 +12,9 @@ export function createElement(type, props, ...children) {
   const normalizedChildren = Object.freeze(
     children
       .flat(Infinity)
-      .filter((child) => child !== null && child !== undefined && child !== false)
+      .filter(
+        (child) => child !== null && child !== undefined && child !== false,
+      )
       .map((child) => {
         if (typeof child === 'object') {
           return child;
@@ -63,7 +65,6 @@ function setDOMProp(dom, name, value) {
       throw new TypeError(`Event handler ${name} must be a function`);
     }
 
-    dom.addEventListener(name.slice(2).toLowerCase(), value);
     return;
   }
 
@@ -107,10 +108,13 @@ export function renderToDOM(vNode) {
       throw new TypeError('Text VNodes must have a string nodeValue');
     }
 
-    return document.createTextNode(vNode.props.nodeValue);
+    const textNode = document.createTextNode(vNode.props.nodeValue);
+    textNode.__vnode = vNode;
+    return textNode;
   }
 
   const dom = document.createElement(vNode.type);
+  dom.__vnode = vNode;
 
   Object.entries(vNode.props).forEach(([name, value]) => {
     setDOMProp(dom, name, value);
