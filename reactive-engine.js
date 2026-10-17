@@ -1,5 +1,14 @@
 let stateStore = [];
 let cursor = 0;
+let triggerRender = () => {};
+
+export function setRenderer(renderer) {
+  if (typeof renderer !== 'function') {
+    throw new TypeError('Renderer must be a function');
+  }
+
+  triggerRender = renderer;
+}
 
 export function resetCursor() {
   cursor = 0;
@@ -24,6 +33,7 @@ export function useState(initialValue) {
     }
 
     stateStore[currentCursor] = resolvedState;
+    triggerRender();
   };
 
   const state = stateStore[currentCursor];
