@@ -13,10 +13,16 @@ export function useState(initialValue) {
   }
 
   const setState = (nextState) => {
+    const previousState = stateStore[currentCursor];
     const resolvedState =
       typeof nextState === 'function'
-        ? nextState(stateStore[currentCursor])
+        ? nextState(previousState)
         : nextState;
+
+    if (Object.is(previousState, resolvedState)) {
+      return;
+    }
+
     stateStore[currentCursor] = resolvedState;
   };
 
