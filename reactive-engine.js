@@ -1,3 +1,6 @@
+import { setupEventDelegation } from './event-delegation-hub.js';
+import { renderToDOM } from './mini-react.js';
+
 let stateStore = [];
 let cursor = 0;
 let triggerRender = () => {};
@@ -39,4 +42,23 @@ export function useState(initialValue) {
   const state = stateStore[currentCursor];
   cursor += 1;
   return [state, setState];
+}
+
+export function renderApp(rootComponent, rootContainer) {
+  if (typeof rootComponent !== 'function') {
+    throw new TypeError('Root component must be a function');
+  }
+
+  if (!(rootContainer instanceof Element)) {
+    throw new TypeError('Render root must be an Element');
+  }
+
+  const render = () => {
+    resetCursor();
+    rootContainer.replaceChildren(renderToDOM(rootComponent()));
+  };
+
+  setupEventDelegation(rootContainer);
+  setRenderer(render);
+  render();
 }
