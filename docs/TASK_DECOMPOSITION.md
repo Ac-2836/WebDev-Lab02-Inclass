@@ -2,9 +2,8 @@
 
 | Task | Level | Scope | Constraint | Commit | Deliverables |
 |---|---|---|---|---|---|
-| **0. Setup** | Big | Prepare repo and contract docs | Vite/ESBuild bundler only, no Babel standalone | — | Create Vite project and contract docs |
-| 0.1 Add contract docs to repo | Small | Place docs in repo root | `project-rules.md` and `TASK_DECOMPOSITION.md` are mandatory artifacts | `docs(spec): Task decomposition & project rules` | Create `project-rules.md`, `TASK_DECOMPOSITION.md` |
-| 0.2 Scaffold Vite vanilla project | Small | Init project with a root container | `index.html` uses semantic `<main>` and a root element with id `app` | — | Create `index.html`, `src/` |
+| **0. Setup** | Big | Establish repository governance | No application scaffold required | — | Keep contract docs in `docs/` |
+| 0.1 Add contract docs to repo | Small | Keep contract docs in `docs/` | `project-rules.md` and `TASK_DECOMPOSITION.md` are mandatory artifacts | `docs(spec): Task decomposition & project rules` | `docs/project-rules.md`, `docs/TASK_DECOMPOSITION.md` |
 | **1. Mini-React VNode & Mounting Engine** (Exercise 1) | Big | Build createElement, createTextElement, renderToDOM from scratch | Semantic tags only (no div-soup); XSS-resistant; no `innerHTML` | — | Create `mini-react.js` |
 | 1.1 Define VNode & Props interfaces (Contract) | Small | Types for VNode | `readonly` type and props; props holds `children` (VNode[]) and optional `nodeValue`; contract before code | — | Create `vnode-interface.ts` |
 | 1.2 Implement createTextElement factory | Small | Wrap a primitive as a text VNode | type `'TEXT_ELEMENT'`, `nodeValue: String(text)`, `children: []` | — | Create `createTextElement` in `mini-react.js` |
